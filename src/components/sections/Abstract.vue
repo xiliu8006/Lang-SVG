@@ -15,7 +15,8 @@ const highlights = [
       <figcaption>
         <b>Lang-SVG</b> vectorizes natural images into hierarchical object–part SVGs with language
         labels. Primitives are organized from background to fine-grained layers, and each object
-        (e.g., <i>car</i>) branches into its parts (<i>window</i>, <i>door</i>, <i>tire</i>).
+        branches into its parts, e.g., <i>car</i> → <i>window</i>, <i>door</i>, <i>tire</i> and
+        <i>road</i> → <i>lane divider</i>, <i>road texture</i>.
       </figcaption>
     </figure>
 
@@ -29,22 +30,20 @@ const highlights = [
     <div class="sub-heading"><h3>Abstract</h3><span /></div>
     <p class="body-text abstract">
       Image vectorization reconstructs raster images as compact scalable vector graphics (SVG),
-      offering a route to representing natural scenes as structured, editable code. However, most
-      existing vectorization methods optimize for pixel-level rendering fidelity, where the
-      reconstructed SVGs often lack alignment with human-perceived object-part hierarchies, making
-      semantic manipulation of the resulting code difficult. To address this, this work for the
-      first time studies the problems of hierarchical image vectorization and SVG semantic
-      labeling. We propose Lang-SVG, a tree-structured SVG representation that encodes SVG
-      primitives with language tags and parent-child hierarchy. Lang-SVG novelly incorporates
-      granularity-controllable segmentation priors and vision-language priors into the
-      optimization-based vectorization pipeline. It introduces a Tree-Guided Pruning and Merging
-      module to reduce redundant multi-granularity SVG primitives into coherent semantic
-      structures, and an L1-SAM Prompter to recover missing regions. It also includes a new SVG
-      semantic tagging method that integrates SVG tree context into multimodal large language
-      models (MLLMs) to assign language tags to SVG primitives. We also propose a new evaluation
-      protocol for image vectorization, measuring structural quality and semantic part alignment
-      beyond reconstruction fidelity. Experiments demonstrate that Lang-SVG achieves
-      state-of-the-art performance in both rendering and structural quality.
+      providing a structured and editable code representation of images. However, most existing
+      vectorization methods optimize for pixel-level rendering fidelity, often producing SVGs that
+      lack alignment with human-perceived object-part hierarchies, making them difficult to
+      manipulate. To address this, we propose Lang-SVG, which introduces an explicit tree structure
+      to organize SVG primitives with semantic labels and parent-child relationships. Lang-SVG
+      incorporates granularity-controllable and open-vocabulary segmentation priors to initialize
+      object-part hierarchies and leverages multimodal large language models (MLLMs) with SVG tree
+      context to assign semantic labels to unlabeled nodes. To reduce redundancy, we introduce
+      depth-adaptive simplification to reduce shape complexity and Tree-Guided Pruning and Merging
+      to eliminate redundant SVG nodes. An L1-SAM Prompter further recovers missing regions to
+      improve reconstruction fidelity and structural completeness. Beyond reconstruction fidelity,
+      we introduce a new evaluation protocol that measures structural quality and semantic part
+      alignment. Experiments demonstrate that Lang-SVG achieves state-of-the-art performance in
+      both rendering fidelity and structural quality.
     </p>
   </div>
 </template>

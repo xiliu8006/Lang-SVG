@@ -18,7 +18,10 @@ Pushing to `main` builds the site and deploys it with GitHub Actions
 
 ## Editing content
 
-- Authors, buttons (Paper / arXiv / Code): `src/components/sections/Title.vue`
+- Authors, buttons (Paper (arXiv) / Video / Code): `src/components/sections/Title.vue`
+- Explainer video: `src/components/sections/Video.vue`, files in `public/videos/` (mp4, captions .vtt, poster)
+- Photo vs. SVG slider: `src/components/sections/SliderGallery.vue`, files in `public/slider/`
+  (ADE20K photos + Lang-SVG, 2304 points)
 - Method summary: `src/components/sections/Method.vue`
 - Result tables and figures: `src/components/sections/Results.vue`, `Tagging.vue`, `MoreResults.vue`
 - Figures and paper PDF: `public/images/`, `public/Lang-SVG.pdf`

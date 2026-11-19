@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import SliderGallery from './SliderGallery.vue'
 
 const base = import.meta.env.BASE_URL
 
@@ -96,6 +97,8 @@ const rankOf = (rows, col, value, lower) => {
       reconstructs images with higher fidelity while its SVG regions follow object and part
       boundaries far more closely.
     </p>
+
+    <SliderGallery />
 
     <div class="sub-heading"><h3>Image vectorization comparison</h3><span /></div>
     <figure class="figure-card">

@@ -2,6 +2,7 @@
 import Header from './components/Header.vue'
 import Title from './components/sections/Title.vue'
 import Abstract from './components/sections/Abstract.vue'
+import Video from './components/sections/Video.vue'
 import Method from './components/sections/Method.vue'
 import Results from './components/sections/Results.vue'
 import Tagging from './components/sections/Tagging.vue'
@@ -17,6 +18,9 @@ import Footer from './components/Footer.vue'
       <section id="overview">
         <Title />
         <Abstract />
+      </section>
+      <section id="video">
+        <Video />
       </section>
       <section id="method">
         <Method />
@@ -44,6 +48,7 @@ import Footer from './components/Footer.vue'
 }
 
 #overview,
+#video,
 #method,
 #results,
 #bibtex {

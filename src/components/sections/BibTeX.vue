@@ -6,7 +6,9 @@ const bibtex = `@inproceedings{liu2026langsvg,
   author    = {Liu, Xi and Zhou, Chaoyi and Wang, Run and Li, Jiaang and
                Luo, Feng and Huang, Junxiang and Huang, Siyu},
   booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
-  year      = {2026}
+  year      = {2026},
+  eprint    = {2611.15941},
+  archivePrefix = {arXiv}
 }`
 
 const copy = async () => {

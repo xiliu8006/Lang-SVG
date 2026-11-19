@@ -1,7 +1,6 @@
 <script setup>
-import { Document, Link, Picture } from '@element-plus/icons-vue'
+import { Document, Link, VideoPlay } from '@element-plus/icons-vue'
 
-const base = import.meta.env.BASE_URL
 
 const authors = [
   { name: 'Xi Liu', aff: '1', homepage: 'https://xiliu8006.github.io/' },
@@ -19,12 +18,11 @@ const affiliations = [
   { flag: '3', name: 'eBay' },
 ]
 
-// Set `link` and `disabled: false` once the arXiv / code links are public.
+// Set `link` and `disabled: false` once the code link is public.
 const buttons = [
-  { name: 'Paper', link: `${base}Lang-SVG.pdf`, icon: Document, disabled: false },
-  { name: 'arXiv', link: '', icon: Link, disabled: true },
+  { name: 'Paper (arXiv)', link: 'https://arxiv.org/abs/2611.15941', icon: Document, disabled: false },
+  { name: 'Video', link: '#video', icon: VideoPlay, disabled: false },
   { name: 'Code', link: '', icon: Link, disabled: true },
-  { name: 'Results', link: '#results', icon: Picture, disabled: false },
 ]
 </script>
 

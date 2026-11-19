@@ -1,0 +1,181 @@
+WEBVTT
+
+00:00.115 --> 00:03.731
+This is Lang-SVG: hierarchical image vectorization with language priors.
+
+00:06.343 --> 00:07.879
+A photo is a grid of pixels.
+
+00:08.148 --> 00:15.165
+An SVG describes the image as a list of shapes, called paths. Lang-SVG redraws this living room with 256 paths.
+
+00:15.435 --> 00:18.621
+It stays close to the photo, at 29.7 decibels PSNR.
+
+00:19.813 --> 00:23.857
+However, existing vectorization methods, such as LIVE, return a flat list of shapes.
+
+00:24.126 --> 00:27.429
+Here are all 256 paths from LIVE, laid out one by one.
+
+00:27.970 --> 00:29.318
+Which of them make up the armchair?
+
+00:29.587 --> 00:35.392
+This is hard to answer. The paths have no labels, and they are scattered across the list. The picture looks right, but the file has no structure.
+
+00:36.584 --> 00:39.307
+Our key idea is to organize the paths as a semantic tree.
+
+00:39.576 --> 00:43.968
+Each node in the tree has three parts: a text tag, the paths that draw it, and a mask of its region.
+
+00:44.237 --> 00:47.227
+For example, the armchair is an object node under the image root.
+
+00:47.497 --> 00:50.050
+Its children are its parts, such as the seat cushion and the arm.
+
+00:57.185 --> 01:02.310
+So the tree goes from objects, to parts, to finer regions. Selecting one node selects all of the paths below it.
+
+01:03.501 --> 01:05.591
+How do we build this tree? We go from coarse to fine.
+
+01:05.861 --> 01:08.271
+First, object masks give the main objects in the scene.
+
+01:08.552 --> 01:12.953
+Second, an open-vocabulary part segmentation model splits each object into named parts.
+
+01:13.222 --> 01:17.811
+Third, Semantic-SAM adds finer regions. Each region is placed under the smallest mask that contains it.
+
+01:18.080 --> 01:23.106
+Fourth, L1-SAM-Prompting compares the SVG with the photo, and adds new regions where the error is large.
+
+01:23.375 --> 01:27.490
+Finally, visual refinement adds a few more paths for the remaining details, within the path budget.
+
+01:27.760 --> 01:30.518
+Every path in the final SVG comes from one of these stages.
+
+01:31.710 --> 01:34.192
+Next, we simplify each shape according to its depth in the tree.
+
+01:34.461 --> 01:37.692
+Nodes near the root are mostly covered by their children, so fine detail there is wasted.
+
+01:37.961 --> 01:40.791
+So a large node near the root is drawn with only a few points.
+
+01:41.060 --> 01:44.078
+A small node deep in the tree keeps more points, to preserve its detail.
+
+01:44.347 --> 01:47.364
+In short, the deeper the node, the tighter the simplification tolerance.
+
+01:48.556 --> 01:52.467
+After the structure stage, some details are still missing. L1-SAM-Prompting finds them.
+
+01:52.736 --> 01:57.307
+We compute the pixel error between the SVG and the photo. Bright areas show where the SVG is wrong.
+
+01:57.576 --> 02:00.943
+We take the largest error regions. Each one gives a box and a center point.
+
+02:01.212 --> 02:05.077
+We use them as prompts for SAM, which returns a clean mask that follows the edges in the image.
+
+02:05.346 --> 02:08.436
+These masks become new nodes in the tree. Here, five new nodes are added.
+
+02:12.113 --> 02:15.346
+Does the result depend on the quality of the mask prior? We test this directly.
+
+02:15.615 --> 02:20.283
+On the left, we use the 46 part masks predicted by an open-vocabulary part segmentation model.
+
+02:20.553 --> 02:27.026
+On the right, we use ground-truth part masks instead. Everything else stays the same: the same pipeline, and the same budget of 256 paths.
+
+02:27.295 --> 02:33.195
+The two results are very close: 29.7 decibels with predicted masks, and 29.8 with ground-truth masks.
+
+02:33.464 --> 02:38.776
+For parts like the sofa's back pillow, the coffee table's top and the armchair's back, the paths follow the masks in both cases.
+
+02:41.922 --> 02:47.466
+On the ADE20K benchmark, Lang-SVG recovers 79.3 percent of the annotated parts.
+
+02:48.658 --> 02:49.809
+Here are four more cases.
+
+02:50.078 --> 02:54.015
+On the left are the open-vocabulary part masks, and on the right the Lang-SVG result.
+
+02:54.284 --> 02:57.141
+The highlighted parts show that the paths follow the segmentation masks.
+
+03:01.435 --> 03:05.534
+Segmentation cannot name every region. So in the last step, we name the unlabeled nodes.
+
+03:05.803 --> 03:14.222
+For each unlabeled node, we ask a multimodal language model, Qwen 3.5. We give it the full image, a crop of the node, the color of its paths, and the tags of its neighbors in the tree.
+
+03:14.491 --> 03:17.874
+To test this, we hide some real part labels, and ask the model to recover them.
+
+03:18.143 --> 03:22.188
+The model predicts each label and explains its choice. Here, it gets four of five right.
+
+03:30.446 --> 03:36.150
+On ADE20K-Part, the tree context raises the accuracy from 58.5 to 81.3 percent.
+
+03:37.342 --> 03:38.949
+With this tree, editing becomes simple.
+
+03:39.218 --> 03:42.280
+One query selects the armchair, together with all of its paths.
+
+03:42.549 --> 03:45.816
+We can also recolor single parts by name, such as the armchair's seat cushion.
+
+03:46.085 --> 03:47.130
+Or the sofa's back pillow.
+
+03:48.392 --> 03:49.186
+Or the lamp's column.
+
+03:51.314 --> 03:52.421
+We can move the whole armchair,
+
+03:53.467 --> 03:54.699
+or delete it, in one step.
+
+03:59.618 --> 04:03.429
+Now we compare with other methods, using the same budget of 256 paths.
+
+04:03.698 --> 04:08.574
+The images look similar. But only Lang-SVG knows which paths form the sofa, the armchair and the coffee table.
+
+04:08.843 --> 04:12.413
+We also evaluate on the ADE20K benchmark, at three budgets.
+
+04:12.683 --> 04:18.164
+Lang-SVG gives the best reconstruction at every budget, measured by SSIM, PSNR and LPIPS.
+
+04:18.603 --> 04:28.334
+Its structure is much better as well. It has the highest StructXLIP score, and a much higher part recall: 64.2 percent at 2304 points, against 49.1 for the best baseline.
+
+04:29.526 --> 04:32.142
+Here are more results, from the photo to Lang-SVG.
+
+04:39.599 --> 04:40.313
+To summarize.
+
+04:40.582 --> 04:53.831
+Lang-SVG represents an image as a semantic tree of objects, parts and paths. It builds the tree from segmentation priors, refines it with L1-SAM-Prompting, and names the remaining regions with a multimodal language model. And we evaluate not only pixels, but also structure.
+
+04:54.100 --> 04:54.770
+Thanks for watching.

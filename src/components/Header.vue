@@ -1,11 +1,12 @@
 <script setup>
 const navigation = [
   { label: 'Overview', href: '#overview' },
+  { label: 'Video', href: '#video' },
   { label: 'Method', href: '#method' },
   { label: 'Results', href: '#results' },
   { label: 'BibTeX', href: '#bibtex' },
 ]
-const paperUrl = `${import.meta.env.BASE_URL}Lang-SVG.pdf`
+const paperUrl = 'https://arxiv.org/abs/2611.15941'
 </script>
 
 <template>

@@ -1,14 +1,11 @@
 <script setup>
 import { ElMessage } from 'element-plus'
 
-const bibtex = `@inproceedings{liu2026langsvg,
-  title     = {Lang-SVG: Hierarchical Image Vectorization with Language Priors},
-  author    = {Liu, Xi and Zhou, Chaoyi and Wang, Run and Li, Jiaang and
-               Luo, Feng and Huang, Junxiang and Huang, Siyu},
-  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
-  year      = {2026},
-  eprint    = {2611.15941},
-  archivePrefix = {arXiv}
+const bibtex = `@article{liu2026lang,
+  title={Lang-SVG: Hierarchical Image Vectorization with Language Priors},
+  author={Liu, Xi and Zhou, Chaoyi and Wang, Run and Li, Jiaang and Luo, Feng and Huang, Junxiang and Huang, Siyu},
+  journal={arXiv preprint arXiv:2611.15941},
+  year={2026}
 }`
 
 const copy = async () => {

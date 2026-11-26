@@ -21,7 +21,7 @@ const affiliations = [
 const buttons = [
   { name: 'Paper (arXiv)', link: 'https://arxiv.org/abs/2611.15941', icon: Document, disabled: false },
   { name: 'Video', link: '#video', icon: VideoPlay, disabled: false },
-  { name: 'Code', link: 'https://github.com/xiliu8006/Lang-SVG/tree/main/public', icon: Link, disabled: false },
+  { name: 'Code', link: 'https://github.com/xiliu8006/Lang-SVG', icon: Link, disabled: false },
 ]
 </script>
 

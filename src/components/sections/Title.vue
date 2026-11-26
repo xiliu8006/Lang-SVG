@@ -18,11 +18,10 @@ const affiliations = [
   { flag: '3', name: 'eBay' },
 ]
 
-// Set `link` and `disabled: false` once the code link is public.
 const buttons = [
   { name: 'Paper (arXiv)', link: 'https://arxiv.org/abs/2611.15941', icon: Document, disabled: false },
   { name: 'Video', link: '#video', icon: VideoPlay, disabled: false },
-  { name: 'Code', link: '', icon: Link, disabled: true },
+  { name: 'Code', link: 'https://github.com/xiliu8006/Lang-SVG/tree/main/public', icon: Link, disabled: false },
 ]
 </script>
 
